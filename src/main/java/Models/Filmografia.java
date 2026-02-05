@@ -19,6 +19,15 @@ public class Filmografia {
         this.pais_id = pais_id;
         this.clasificacion_id = clasificacion_id;
     }
+    
+     public Filmografia() {
+        this.id = 0;
+        this.titulo = "";
+        this.fecha_estreno = null;
+        this.sinopsis = "";
+        this.pais_id = 0;
+        this.clasificacion_id = 0;
+    }
 
     @Override
     public String toString() {

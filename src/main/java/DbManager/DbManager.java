@@ -23,6 +23,7 @@ import io.github.cdimascio.dotenv.Dotenv;
         }
     }
     
+    
     public void desconectar() {
         try {
             if (conexion != null && !conexion.isClosed()){
@@ -33,5 +34,9 @@ import io.github.cdimascio.dotenv.Dotenv;
             System.out.println(e.getMessage()+ "Error al conectar"); 
         }
     } 
+
+    public Connection getConnection() {
+        return conexion; 
+    }
    
 }
