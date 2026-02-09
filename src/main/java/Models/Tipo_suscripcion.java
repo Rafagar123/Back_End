@@ -12,6 +12,13 @@ public class Tipo_suscripcion {
         this.precio = precio;
         this.duracion_meses = duracion_meses;
     }
+    
+    public Tipo_suscripcion(){
+        this.tipo_id = 0;
+        this.nombre = "";
+        this.precio = 0;
+        this.duracion_meses = 0;
+    }
 
     @Override
     public String toString() {

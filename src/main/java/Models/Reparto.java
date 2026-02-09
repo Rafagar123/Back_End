@@ -12,6 +12,13 @@ public class Reparto {
         this.nombre_actor = nombre_actor;
         this.papel = papel;
     }
+    
+    public Reparto() {
+        this.id_reparto = 0;
+        this.id_filmografia = 0;
+        this.nombre_actor = "";
+        this.papel = "";
+    }
 
     @Override
     public String toString() {

@@ -9,6 +9,11 @@ public class Clasificacion {
         this.id = id;
         this.nombre = nombre;
     }
+    
+    public Clasificacion() {
+        this.id = 0;
+        this.nombre = "";
+    }
 
     @Override
     public String toString() {

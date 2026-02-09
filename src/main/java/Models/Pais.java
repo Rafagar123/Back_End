@@ -8,6 +8,11 @@ public class Pais {
       this.id = id;
       this.nombre = nombre;
   }
+  
+  public Pais (){
+      this.id = 0;
+      this.nombre = "";
+  }
 
     @Override
     public String toString() {

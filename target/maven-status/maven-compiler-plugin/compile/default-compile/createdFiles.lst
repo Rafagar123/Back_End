@@ -10,6 +10,7 @@ Models\Suscripcion.class
 DAOs\RepartoDAO.class
 DAOs\GeneroDAO.class
 DAOs\FilmografiaDAO.class
+DAOs\MainTest.class
 Models\Acceso.class
 Models\Filmografia.class
 Models\Reparto.class

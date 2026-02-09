@@ -16,6 +16,14 @@ public class Suscripcion {
         this.fecha_contratacion = fecha_contratacion;
         this.fecha_fin = fecha_fin;
     }
+    
+    public Suscripcion() {
+        this.id = 0;
+        this.cuenta_id = 0;
+        this.tipo_id = 0;
+        this.fecha_contratacion = null;
+        this.fecha_fin = null;
+    }
 
     @Override
     public String toString() {

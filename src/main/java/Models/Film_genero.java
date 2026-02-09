@@ -8,6 +8,11 @@ public class Film_genero {
         this.film_id = film_id;
         this.genero_id = genero_id;
     }
+    
+    public Film_genero() {
+        this.film_id = 0;
+        this.genero_id = 0;
+    }
 
     @Override
     public String toString() {

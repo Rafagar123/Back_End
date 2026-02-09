@@ -8,6 +8,11 @@ public class Genero {
         this.id = id;
         this.nombre = nombre;
     }
+    
+    public Genero() {
+        this.id = 0;
+        this.nombre = "";
+    }
 
     @Override
     public String toString() {

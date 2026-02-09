@@ -22,63 +22,99 @@ public class FilmografiaDAO {
         this.db = db.getConnection();
     }
     
-    public void filmografia_listall () throws SQLException{
-        Filmografia film = new Filmografia();
-        PreparedStatement stmt = db.prepareStatement(LISTALL);
-        ResultSet rs = stmt.executeQuery();
-        
+    public Filmografia crearFilmografia(ResultSet rs) throws SQLException{
         try{
-            while(rs.next()){
-                film.setId(rs.getInt("id"));
-                film.setTitulo(rs.getString("titulo"));
-                film.setFecha_estreno(rs.getDate("fecha_estreno"));
-                film.setSinopsis(rs.getString("sinopsis"));
-                film.setPais_id(rs.getInt("pais_id"));
-                film.setClasificacion_id(rs.getInt("clasificacion_id"));
-                System.out.println(film.toString());    
-            }
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
+            return new Filmografia(
+                rs.getInt("id"),
+                rs.getString("titulo"),
+                rs.getDate("fecha_estreno"),
+                rs.getString("sinopsis"),
+                rs.getInt("pais_id"),
+                rs.getInt("clasificacion_id"));
+        }catch (SQLException e){
+            throw new SQLException ("Error creando Filmografia", e.getMessage());
         }
     };
     
-    public void filmografia_listone (int id) throws SQLException{
-        Filmografia film = new Filmografia();
-        PreparedStatement stmt = db.prepareStatement(LISTONE);
-        stmt.setInt(1, id);
-        ResultSet rs = stmt.executeQuery();
-        rs.next();
+    
+    private void cerrarEstados(PreparedStatement stmt, ResultSet rs)throws SQLException{
+        if (stmt != null){ 
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                throw new SQLException("Error cerrando Statement", e.getMessage());
+            }
+        }
+        
+        if (rs != null){
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                throw new SQLException("Error cerrando ResultSet", e.getMessage());
+            }
+        }
+    };
+    
+
+    public void filmografia_listall () throws SQLException{
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         
         try{
-                film.setId(rs.getInt("id"));
-                film.setTitulo(rs.getString("titulo"));
-                film.setFecha_estreno(rs.getDate("fecha_estreno"));
-                film.setSinopsis(rs.getString("sinopsis"));
-                film.setPais_id(rs.getInt("pais_id"));
-                film.setClasificacion_id(rs.getInt("clasificacion_id"));
-                System.out.println(film.toString());    
+            stmt = db.prepareStatement(LISTALL);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                System.out.print(crearFilmografia(rs));    
+            }
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }finally { // TEN EN CUENTA QUE EN UN TRY CATCH, EL FINALLY SIEMPRE SE EJECUTA AL FINAL. POR ESO MISMO, QUEREMOS QUE SIEMPRE SE CIERRA EL PREPAREDSTATEMENT Y EL RESULTSET
+            cerrarEstados(stmt, rs);
+        }
+    };
+ 
+    
+    public void filmografia_listone (int id) throws SQLException{
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            stmt = db.prepareStatement(LISTONE);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            rs.next();
+            System.out.print(crearFilmografia(rs));    
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            cerrarEstados(stmt, rs);
         }
     };
 
     
     public void filmografia_delete (int id) throws SQLException{
-        try{
         PreparedStatement stmt = db.prepareStatement(DELETE);
-        stmt.setInt(1, id);
-        stmt.executeUpdate();
+        ResultSet rs = null;
+        
+        try{
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }finally {
+            cerrarEstados(stmt, rs);
         }
     };
     
+    
     public void filmografia_insert (int id, String titulo, Date fecha_Estreno,
-                String sinopsis, int pais_id, int clasificacion_id) throws SQLException{
-         try{
-            PreparedStatement stmt = db.prepareStatement(INSERT);
-            stmt.setInt(1, id);
-            
+            String sinopsis, int pais_id, int clasificacion_id) throws SQLException{
+        PreparedStatement stmt = null;
+        ResultSet rs =  null;
+
+        try{
+            stmt = db.prepareStatement(INSERT);
+            stmt.setInt(1, id);            
             stmt.setString(2, titulo);
             stmt.setDate(3, fecha_Estreno);
             stmt.setString(4, sinopsis);
@@ -86,24 +122,32 @@ public class FilmografiaDAO {
             stmt.setInt(6, clasificacion_id); 
             stmt.executeUpdate();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }finally {
+            cerrarEstados(stmt, rs);
         }
     };
     
+    
     public void filmografia_update (int id, String titulo, Date fecha_Estreno,
-                String sinopsis, int pais_id, int clasificacion_id) throws SQLException{
-         try{
-            PreparedStatement stmt = db.prepareStatement(UPDATE);
-            stmt.setInt(1, id);
-            stmt.setString(2, titulo);
-            stmt.setDate(3, fecha_Estreno);
-            stmt.setString(4, sinopsis);
-            stmt.setInt(5, pais_id);
-            stmt.setInt(6, clasificacion_id);  
+            String sinopsis, int pais_id, int clasificacion_id) throws SQLException{
+        PreparedStatement stmt = null;
+        ResultSet rs =  null;
+        
+        try{
+            stmt = db.prepareStatement(UPDATE);
+            stmt.setInt(6, id);
+            stmt.setString(1, titulo);
+            stmt.setDate(2, fecha_Estreno);
+            stmt.setString(3, sinopsis);
+            stmt.setInt(4, pais_id);
+            stmt.setInt(5, clasificacion_id);  
             stmt.executeUpdate();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
+            e.printStackTrace();
+        }finally {
+            cerrarEstados(stmt, rs);
+        } 
     };
   
 }

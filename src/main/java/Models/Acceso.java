@@ -17,6 +17,14 @@ public class Acceso {
         this.fecha_acceso = fecha_acceso;
         this.tipo_suscripcion_id = tipo_suscripcion_id;
     }
+    
+    public Acceso() {
+        this.id_acceso = 0;
+        this.id_filmografia = 0;
+        this.id_cuenta = 0;
+        this.fecha_acceso = null;
+        this.tipo_suscripcion_id = 0;
+    }
 
     @Override
     public String toString() {

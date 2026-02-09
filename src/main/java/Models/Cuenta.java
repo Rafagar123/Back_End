@@ -12,6 +12,13 @@ public class Cuenta {
         this.nombre = nombre;
         this.password_hash = password_hash;
     }
+    
+    public Cuenta() {
+        this.id_cuenta = 0;
+        this.tipo_cuenta = "";
+        this.nombre = "";
+        this.password_hash = "";
+    }
 
     @Override
     public String toString() {

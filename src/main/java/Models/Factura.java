@@ -9,7 +9,8 @@ public class Factura {
     private String metodo_pago;
     private Date fecha_factura;
 
-    public Factura(int num_factura, int suscripcion_id, int cuenta_id, float importe_pvp, String metodo_pago, Date fecha_factura) {
+    public Factura(int num_factura, int suscripcion_id, int cuenta_id, 
+            float importe_pvp, String metodo_pago, Date fecha_factura) {
         this.num_factura = num_factura;
         this.suscripcion_id = suscripcion_id;
         this.cuenta_id = cuenta_id;
@@ -18,9 +19,20 @@ public class Factura {
         this.fecha_factura = fecha_factura;
     }
 
+    public Factura() {
+        this.num_factura = 0;
+        this.suscripcion_id = 0;
+        this.cuenta_id = 0;
+        this.importe_pvp = 0;
+        this.metodo_pago = "";
+        this.fecha_factura = null;
+    }
+    
     @Override
     public String toString() {
-        return "Factura{" + "num_factura=" + num_factura + ", suscripcion_id=" + suscripcion_id + ", cuenta_id=" + cuenta_id + ", importe_pvp=" + importe_pvp + ", metodo_pago=" + metodo_pago + ", fecha_factura=" + fecha_factura + '}';
+        return "Factura{" + "num_factura=" + num_factura + ", suscripcion_id=" 
+                + suscripcion_id + ", cuenta_id=" + cuenta_id + ", importe_pvp=" 
+                + importe_pvp + ", metodo_pago=" + metodo_pago + ", fecha_factura=" + fecha_factura + '}';
     }
 
     public int getNum_factura() {
